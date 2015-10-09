@@ -1,6 +1,6 @@
 # Databases
 
-This repo is split into _two_ sections, Relational Databases and You &
+This repo is split into _two_ sections, Relational Databases &
 Advance Data Storage. You should work through them sequentially.
 
 There's a lot of material in this sprint. Before you dive in, take 5-10min with your pair to review all of the requirements
