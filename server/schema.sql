@@ -3,12 +3,21 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
-  /* Describe your table here.*/
+  id int AUTO_INCREMENT,
+  date date,
+  text varchar(250),
+  username varchar(50),
+  roomname varchar(50),
+  PRIMARY KEY (id)
 );
 
 /* Create other tables and define schemas for them here! */
 
-
+CREATE TABLE users (
+  id int AUTO_INCREMENT,
+  username varchar(50),
+  PRIMARY KEY (id)
+);
 
 
 /*  Execute this file from the command line by typing:
