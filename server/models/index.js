@@ -5,18 +5,37 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {}, // a function which produces all the messages
-    post: function () {
+    get: function (req, res) {
+      // db.dbConnection.connect();
+      var myQuery = 'SELECT * FROM messages;';
+      db.dbConnection.query(myQuery, function(err, results){
+        // db.dbConnection.end();
+        if(err) {
+          console.log("Error message: ", err.message);
+          res.send(err.message);
+        } else {
+          console.log('Success mysql Messages ', results);
+          res.send(results);
+        }
+      });
 
-      db.dbConnection.connect();
-      var myQuery = 'INSERT INTO messages (username,text,roomname) values (' + JSON.stringify(data.username) + ', '+ JSON.stringify(data.message) +', '+ JSON.stringify(data.roomname) +');';
+
+
+    }, // a function which produces all the messages
+    post: function (req, res, data) {
+
+      // db.dbConnection.connect();
+      console.log('Posted data in models: ', data);
+      var myQuery = 'INSERT INTO messages (username,text,roomname) values ("' + data.username + '", "'+ data.text +'", "'+ data.roomname +'");';
       // var myQuery = "INSERT INTO users (username) values ('puppy');";
       db.dbConnection.query(myQuery, function(err, results){
         // db.dbConnection.end();
         if(err) {
           console.log(err.message);
+          res.send(err.message);
         } else {
-          console.log('Success messages');
+          console.log('Success mysql Messages');
+          res.send('Success messages');
         }
       });
 
@@ -26,16 +45,17 @@ module.exports = {
   users: {
     // Ditto as above.
     get: function () {},
-    post: function (data) {
-      db.dbConnection.connect();
-      var myQuery = 'INSERT INTO users (username) values (' + JSON.stringify(data.username) + ');';
+    post: function (req, res, data) {
+      // db.dbConnection.connect();
+      var myQuery = "INSERT INTO users (username) values ('" + data.username + "');";
       // var myQuery = "INSERT INTO users (username) values ('puppy');";
       db.dbConnection.query(myQuery, function(err, results){
         // db.dbConnection.end();
         if(err) {
-          console.log(err.message);
+          res.send(err.message);
         } else {
-          console.log('Success users');
+          console.log('Success mysql Users');
+          res.send('Success users');
         }
       });
       // console.log("I am after post");
