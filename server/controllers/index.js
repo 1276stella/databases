@@ -8,13 +8,26 @@ var db = require('../db/index.js');
 module.exports = {
   messages: {
     get: function (req, res) {
-      console.log('I get the request');
-      models.messages.get(req, res);
+      // console.log('I get the request');
+      db.Message.findAll()
+        .then(function(results){
+          res.json(results);
+        });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      var data = req.body;
-      console.log('Our posted data', data);
-      models.messages.post(req, res, data);
+      console.log('req.body: ', req.body);
+      var data = {
+        text: req.body.text,
+        username: req.body.username,
+        roomname: req.body.roomname
+      };
+
+      db.Message.create(data)
+             .then(function(err, results){
+              res.sendStatus(201);
+             });
+      // console.log('Our posted data', data);
+      
     } // a function which handles posting a message to the database
   },
 
@@ -23,7 +36,7 @@ module.exports = {
     get: function (req, res) {},
     post: function (req, res) {
       var data = req.body;
-      console.log('Our Users data', data.username);
+      // console.log('Our Users data', data.username);
       models.users.post(req, res, data);
       // req.on('data', function(chunk){
       //   data += chunk;

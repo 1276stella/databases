@@ -74,11 +74,9 @@ $(function() {
           // if (mostRecentMessage.objectId !== app.lastMessageId || app.roomname !== displayedRoom) {
             // Update the UI with the fetched rooms
             app.populateRooms(data);
-            console.log('populateRooms is good');
 
             // Update the UI with the fetched messages
             app.populateMessages(data, animate);
-            console.log('populateMessages is good');
 
             // Store the ID of the most recent message
             app.lastMessageId = mostRecentMessage.objectId;

@@ -1,15 +1,35 @@
-var mysql = require('mysql');
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize("chat", "root", "", {
+  define: {
+    freezeTableName: true
+  }
+});
 
-// Create a database connection and export it from this file.
-// You will need to connect with the user "root", no password,
-// and to the database "chat".
+var User = sequelize.define('user', {
+  id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  username: Sequelize.STRING,
 
-module.exports = {
 
-  dbConnection: mysql.createConnection({
-    user: "root",
-    password: "",
-    database: "chat"
-  })
+});
 
-}
+var Message = sequelize.define('message', {
+  id: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  username: Sequelize.STRING,
+  text: Sequelize.STRING,
+  roomname: Sequelize.STRING
+});
+
+User.sync();
+Message.sync()
+
+// .then(function(){
+//   var newUser = Message.build({text: "Jean Valjean"});
+//   newUser.save();
+// });
+
+ 
+
+exports.User = User;
+exports.Message = Message; 
+
+

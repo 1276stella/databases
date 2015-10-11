@@ -33,9 +33,6 @@ describe("Persistent Node Chat Server", function() {
               uri: "http://127.0.0.1:3000/classes/users",
               json: { username: "Valjean" }
     }, function (err) {
-      console.log('err: ', err);
-      console.log("I am here");
-
       // Post a message to the node chat server:
       request({ method: "POST",
               uri: "http://127.0.0.1:3000/classes/messages",
@@ -54,7 +51,6 @@ describe("Persistent Node Chat Server", function() {
         var queryArgs = [];
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
-          console.log("Specs Get Results: ", results);
           // Should have one result:
           expect(results.length).to.equal(1);
 
@@ -76,13 +72,11 @@ describe("Persistent Node Chat Server", function() {
     // them up to you. */
 
     dbConnection.query(queryString, queryArgs, function(err) {
-      console.log("Query: ")
       if (err) { throw err; }
 
       // Now query the Node chat server and see if it returns
       // the message we just inserted:
       request("http://127.0.0.1:3000/classes/messages", function(error, response, body) {
-        console.log("SPECS: ",response, body);
         var messageLog = JSON.parse(body);
         expect(messageLog[0].text).to.equal("Men like you can never change!");
         expect(messageLog[0].roomname).to.equal("main");
